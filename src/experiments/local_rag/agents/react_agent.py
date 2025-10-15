@@ -1,5 +1,4 @@
 import logging
-from utils.config import DEFAULT_CONFIG
 from agents.base_agent import BaseReActAgent
 
 logger = logging.getLogger(__name__)
@@ -7,7 +6,6 @@ logger = logging.getLogger(__name__)
 class AdvancedReactAgent(BaseReActAgent):
     """
     Extended agent that supports verifier and memory plugins.
-    Use this when you need quality checking and/or session tracking.
     """
     
     def __init__(self, api_key, tools, config=None, 

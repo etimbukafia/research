@@ -8,7 +8,6 @@ logger = logging.getLogger(__name__)
 class MemoryLayer:
     """
     Tracks conversation history and saves sessions.
-    Use this when you need to remember past interactions.
     """
 
     def __init__(self, memory_dir="memory"):
@@ -18,7 +17,6 @@ class MemoryLayer:
         self.history = []
     
     def start_session(self, query):
-        """Start tracking a new query"""
         timestamp = datetime.utcnow().strftime("%Y%m%d_%H%M%S")
         self.current_session = {
             "query": query,
@@ -30,7 +28,7 @@ class MemoryLayer:
         logger.info(f"📝 Started session: {timestamp}")
     
     def add_step(self, step_number, step_data):
-        """Record a reasoning step"""
+        """Recording a reasoning step"""
         if not self.current_session:
             logger.warning("No active session. Call start_session() first.")
             return
@@ -44,7 +42,7 @@ class MemoryLayer:
         self.current_session["steps"] = self.history
     
     def save_session(self):
-        """Save session to file"""
+        """Saving session to file"""
         if not self.current_session:
             logger.warning("No session to save")
             return None
@@ -52,7 +50,7 @@ class MemoryLayer:
         timestamp = self.current_session["timestamp"]
         filepath = self.output_dir / f"session_{timestamp}.json"
         
-        # Add summary
+        # Adding summary
         self.current_session["end_time"] = datetime.utcnow().isoformat()
         self.current_session["total_steps"] = len(self.history)
         
@@ -63,7 +61,7 @@ class MemoryLayer:
         return str(filepath)
     
     def get_summary(self):
-        """Get summary of current session"""
+        """Getting summary of current session"""
         if not self.history:
             return "No steps recorded"
         
@@ -77,7 +75,7 @@ class MemoryLayer:
         }
     
     def get_context_summary(self, max_steps=3):
-        """Get a summary of recent steps for context"""
+        """Getting a summary of recent steps for context"""
         if not self.history:
             return "No previous context"
         

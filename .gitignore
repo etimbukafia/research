@@ -66,6 +66,8 @@ Desktop.ini
 
 # Local data / model caches / outputs (project-specific)
 src/local_rag/chroma_db/
+src/experiments/escape_room.py
+src/experiments/escape_room_test.py
 src/experiments/**/__pycache__/
 researcher/
 

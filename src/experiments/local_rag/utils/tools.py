@@ -14,11 +14,11 @@ class Tool:
         """
         Main execute method that normalizes input before calling _execute
         """
-        # 🔧 Normalize query input to handle lists, dicts, None
+        # 🔧 Normalizing query input to handle lists, dicts, None
         if isinstance(query, list):
             query = " ".join(map(str, query))
         elif isinstance(query, dict):
-            # Handle dict - could be {"query": ["item1", "item2"]}
+            # Handling dict - could be {"query": ["item1", "item2"]}
             if "query" in query:
                 q = query["query"]
                 if isinstance(q, list):
@@ -32,7 +32,7 @@ class Tool:
         else:
             query = str(query)
         
-        # Call subclass implementation
+        # Calling subclass implementation
         return self._execute(query, **kwargs)
     
     def _execute(self, query: str, **kwargs) -> str:
@@ -96,7 +96,7 @@ class RAGTool(Tool):
                 if not raw_results["documents"][0]:
                     return "No relevant documents found."
                 
-                # Format results
+                # Formatting results
                 formatted = []
                 for i, (doc, metadata) in enumerate(zip(
                     raw_results["documents"][0], 

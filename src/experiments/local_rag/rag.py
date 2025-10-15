@@ -5,7 +5,6 @@ from pathlib import Path
 from tavily import TavilyClient
 import logging
 
-# Import from YOUR existing tools.py
 from utils.tools import RAGTool, VectorStoreRetriever, WebSearchTool
 from agents.base_agent import BaseReActAgent
 from utils.config import DEFAULT_CONFIG
@@ -30,7 +29,7 @@ class SimpleRAG:
         self.chroma_db_path = Path(chroma_db_path or Path(__file__).parent / "chroma_db")
         self.config = config or DEFAULT_CONFIG.copy()
         
-        # Setup ChromaDB
+        # Setting up ChromaDB
         embed_fn = embedding_functions.SentenceTransformerEmbeddingFunction(
             model_name=self.config["embedding_model"]
         )
@@ -41,14 +40,14 @@ class SimpleRAG:
             embedding_function=embed_fn
         )
         
-        # Setup retriever using YOUR VectorStoreRetriever
+        # Setting up retriever using YOUR VectorStoreRetriever
         self.retriever = VectorStoreRetriever(
             collection_name="research_papers_v2",
             chroma_db_path=str(self.chroma_db_path),
             embedding_model=self.config["embedding_model"]
         )
         
-        # Setup tools using YOUR RAGTool
+        # Setting up tools using YOUR RAGTool
         rag_tool = RAGTool(
             collection=self.collection,
             retriever=self.retriever
@@ -57,7 +56,7 @@ class SimpleRAG:
 
         self.tools = [rag_tool, websearch_tool]
         
-        # Setup agent
+        # Setting up agent
         self.agent = BaseReActAgent(api_key, self.tools, self.config)
     
     def ingest_papers(self):
@@ -82,7 +81,7 @@ class SimpleRAG:
             
             chunks = self._chunk_text(text)
             
-            # Prepare data
+            # Preparing data
             ids = []
             metadatas = []
             for i, chunk in enumerate(chunks):
@@ -92,7 +91,7 @@ class SimpleRAG:
                     "chunk_index": i
                 })
             
-            # Check if already exists
+            # Checking if already exists
             try:
                 existing = self.collection.get(ids=ids[:1])
                 if existing["ids"]:
@@ -101,7 +100,7 @@ class SimpleRAG:
             except:
                 pass
             
-            # Add to collection
+            # Adding  to collection
             try:
                 self.collection.add(
                     documents=chunks,
@@ -113,7 +112,7 @@ class SimpleRAG:
                 logger.error(f"❌ Error ingesting {pdf_file.name}: {e}")
     
     def _extract_pdf_text(self, pdf_path):
-        """Extract text from PDF"""
+        """Extracting text from PDF"""
         text = ""
         try:
             with open(pdf_path, 'rb') as f:
@@ -125,7 +124,7 @@ class SimpleRAG:
         return text
     
     def _chunk_text(self, text):
-        """Split text into chunks with overlap"""
+        """Splitting text into chunks with overlap"""
         chunk_size = self.config["chunk_size"]
         overlap = self.config["chunk_overlap"]
         
@@ -148,11 +147,11 @@ class SimpleRAG:
         return chunks
     
     def query(self, question):
-        """Query the RAG system"""
+        """Querying the RAG system"""
         return self.agent.run(question)
     
     def reset_database(self):
-        """Delete and recreate collection"""
+        """Deleting and recreate collection"""
         try:
             self.client.delete_collection("research_papers_v2")
             logger.info("✅ Database reset successful")

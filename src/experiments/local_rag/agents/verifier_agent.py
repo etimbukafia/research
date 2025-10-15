@@ -9,7 +9,6 @@ logger = logging.getLogger(__name__)
 class VerifierAgent:
     """
     Verifies the quality of agent's reasoning and answers.
-    Use this when you need quality assurance.
     """
     
     def __init__(self, api_key, model="z-ai/glm-4.5-air:free"):

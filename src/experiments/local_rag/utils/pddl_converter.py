@@ -1,6 +1,4 @@
 import os
-import json
-import requests
 from pathlib import Path
 import google.generativeai as genai
 from dotenv import load_dotenv
