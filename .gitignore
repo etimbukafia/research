@@ -1,0 +1,91 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+*.egg
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+.tox/
+*.cover
+*.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*,cover
+.hypothesis/
+.pytest_cache/
+
+# Pyenv
+.python-version
+
+# Virtualenv
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# VS Code
+.vscode/
+
+# MacOS
+.DS_Store
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Logs and databases
+*.log
+*.sqlite3
+*.db
+
+# Local data / model caches / outputs (project-specific)
+src/local_rag/chroma_db/
+src/experiments/**/__pycache__/
+researcher/
+
+# Jupyter
+.ipynb_checkpoints
+
+# MyPy
+mypy_cache/
+
+# Coverage reports
+htmlcov/
+
+# dotenv
+.env
+.env.*
+
+# Ignore compiled frontend artifacts if present
+node_modules/
+dist/
+
+# OS generated files
+thumbs.db
+
